@@ -8,7 +8,18 @@ class POSScreen extends StatefulWidget {
   State<POSScreen> createState() => _POSScreenState();
 }
 
+
 class _POSScreenState extends State<POSScreen> {
+
+//step 06 we make List in list add Map which meaning we
+  List<Map<String, dynamic>> cartItems = [];
+  double total = 0;
+  void addItemToCart(String name , String barcode , double price){
+    setState(() {
+      cartItems.add({'name': name, 'barcode': barcode, 'price': price});
+      total += price;
+    });
+  }
   @override
   Widget build(BuildContext context) {
 
@@ -24,7 +35,25 @@ class _POSScreenState extends State<POSScreen> {
        TextField(
          decoration: InputDecoration(border: OutlineInputBorder(borderRadius: BorderRadius.circular(20)),
              label: Text('Scan Barcode or Enter product Name ')),
-       )
+         onSubmitted: (value){
+           addItemToCart('D&G ', '12345', 50);
+           // it's a dymmy data
+         },
+       ),
+//step 06 i add listview bilder with help me to display data
+       Expanded(child: ListView.builder(itemCount: cartItems.length,
+       itemBuilder: (context, index) {
+         var item = cartItems[index];
+         return ListTile(
+           title: Text(item['name']),
+           subtitle: Text('Barcode: ${item['barcode']}'),
+           trailing: Text('PKR:${item['price']}'),
+           );
+       },)
+       ),
+       Padding(padding: EdgeInsets.all(8.0),
+       child: Text('Total amount PKR:${total.toStringAsFixed(2)}',style: TextStyle(fontWeight: FontWeight.bold,fontSize: 24),)),
+
      ],
    ),
     );

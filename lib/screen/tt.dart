@@ -1,9 +1,6 @@
-/*
+
 import 'package:flutter/material.dart';
 
-void main() {
-  runApp(POSNextApp());
-}
 
 class POSNextApp extends StatelessWidget {
   @override
@@ -263,4 +260,3 @@ class ProductListScreen extends StatelessWidget {
     );
   }
 }
-*/

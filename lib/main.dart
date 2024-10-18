@@ -2,7 +2,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:posnext_mobile/screen/MainMenuScreen.dart';
-import 'package:posnext_mobile/screen/tt.dart';
+
 
 void main(){
   runApp(POSNextApp());

@@ -20,6 +20,13 @@ class _POSScreenState extends State<POSScreen> {
       total += price;
     });
   }
+  void completePayment(String method){
+    setState(() {
+      cartItems.clear();
+      total =0;
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('$method Payment Compeleted')));
+    });
+  }
   @override
   Widget build(BuildContext context) {
 
@@ -52,7 +59,22 @@ class _POSScreenState extends State<POSScreen> {
        },)
        ),
        Padding(padding: EdgeInsets.all(8.0),
-       child: Text('Total amount PKR:${total.toStringAsFixed(2)}',style: TextStyle(fontWeight: FontWeight.bold,fontSize: 24),)),
+       child: Text('Total amount PKR:${total.toStringAsFixed(2)}',
+         style: TextStyle(fontWeight: FontWeight.bold,fontSize: 24),)
+       ),
+       Padding(padding: EdgeInsets.all(8.0),
+       child: Row(
+         mainAxisAlignment: MainAxisAlignment.spaceAround,
+         children: [
+           ElevatedButton(onPressed: (){
+             completePayment('Cash');
+           }, child: Text('Cash')),
+           ElevatedButton(onPressed: (){
+             completePayment('Card');
+             
+           }, child: Text('Card'))
+         ],
+       ),)
 
      ],
    ),

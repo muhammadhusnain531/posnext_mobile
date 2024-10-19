@@ -25,6 +25,11 @@ class SaleReportScreen extends StatelessWidget {
             DataCell(Text('Card')),
             DataCell(Text('\$200.00')),
           ]),
+          DataRow(cells: [
+            DataCell(Text('1003')),
+            DataCell(Text('Card')),
+            DataCell(Text('\PKR 200'))
+          ])
         ],
       ),
     );

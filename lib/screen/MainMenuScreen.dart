@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:posnext_mobile/screen/POSScreen.dart';
 import 'package:posnext_mobile/screen/ProductListScreen.dart';
 import 'package:posnext_mobile/screen/ReturnScreen.dart';
+import 'package:posnext_mobile/screen/SaleReportScreen.dart';
 // Step 01 i add StatelessWidget which name is MainMenuScreen
 
 class MainMenuScreen extends StatelessWidget {
@@ -38,7 +39,7 @@ class MainMenuScreen extends StatelessWidget {
               leading: Icon(Icons.receipt),
               title: Text('Sale Report'),
               onTap: (){
-                Navigator.push(context, MaterialPageRoute(builder: (context)=>POSScreen()));
+                Navigator.push(context, MaterialPageRoute(builder: (context)=>SaleReportScreen()));
               },
             ),
             ListTile(

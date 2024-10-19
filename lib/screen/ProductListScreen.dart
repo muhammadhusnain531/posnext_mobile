@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:posnext_mobile/screen/AddProductScreen.dart';
 
 // Product list that can be accessed in POSScreen
 final List<Map<String, dynamic>> products = [
@@ -16,6 +17,11 @@ class ProductListScreen extends StatefulWidget {
 }
 
 class _ProductListScreenState extends State<ProductListScreen> {
+  // Function to refresh the list after adding a product
+  void refreshList() {
+    setState(() {}); // Trigger rebuild to reflect the updated product list
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -32,6 +38,24 @@ class _ProductListScreenState extends State<ProductListScreen> {
             trailing: Text('Price: PKR ${product['price']}'),
           );
         },
+      ),
+      // Step 1: Add FloatingActionButton to open AddProductScreen
+      floatingActionButton: FloatingActionButton(
+        onPressed: () async {
+          // Navigate to AddProductScreen and wait for result
+          final newProduct = await Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => AddProductScreen()),
+          );
+          if (newProduct != null) {
+            // Add the new product to the list
+            setState(() {
+              products.add(newProduct);
+            });
+          }
+        },
+        child: Icon(Icons.add),
+        tooltip: 'Add Product',
       ),
     );
   }

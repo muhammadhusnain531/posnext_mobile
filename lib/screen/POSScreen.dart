@@ -25,7 +25,9 @@ class _POSScreenState extends State<POSScreen> {
     // Try to find the product either by barcode or name
     var foundProduct = products.firstWhere(
           (product) => product['barcode'] == input || product['name'].toLowerCase() == input.toLowerCase(),
-      orElse: () => { }, // Returns null if no product is found
+      orElse: () => {
+
+      }, // Returns null if no product is found
     );
 
     if (foundProduct != null) {

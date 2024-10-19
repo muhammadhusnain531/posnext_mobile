@@ -4,6 +4,20 @@ class ProductListScreen extends StatelessWidget {
   final List<Map<String, dynamic>> products = [
     {'name': 'Product 1', 'barcode': '12345', 'price': 100.0},
     {'name': 'Product 2', 'barcode': '67890', 'price': 150.0},
+      {'name': 'Product 1', 'barcode': '12345', 'price': 100.0},
+    {'name': 'Product 2', 'barcode': '67890', 'price': 150.0},
+      {'name': 'Product 1', 'barcode': '12345', 'price': 100.0},
+    {'name': 'Product 2', 'barcode': '67890', 'price': 150.0},
+      {'name': 'Product 1', 'barcode': '12345', 'price': 100.0},
+    {'name': 'Product 2', 'barcode': '67890', 'price': 150.0},
+      {'name': 'Product 1', 'barcode': '12345', 'price': 100.0},
+    {'name': 'Product 2', 'barcode': '67890', 'price': 150.0},
+      {'name': 'Product 1', 'barcode': '12345', 'price': 100.0},
+    {'name': 'Product 2', 'barcode': '67890', 'price': 150.0},
+      {'name': 'Product 1', 'barcode': '12345', 'price': 100.0},
+    {'name': 'Product 2', 'barcode': '67890', 'price': 150.0},
+      {'name': 'Product 1', 'barcode': '12345', 'price': 100.0},
+    {'name': 'Product 2', 'barcode': '67890', 'price': 150.0},
   ];
 
   @override

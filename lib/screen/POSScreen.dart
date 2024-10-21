@@ -1,5 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:posnext_mobile/screen/ProductListScreen.dart';
+import 'dart:math'; // For generating a random bill number
+import 'package:intl/intl.dart';
+import 'package:posnext_mobile/screen/ProductListScreen.dart'; // For formatting the date
+
+// Global list to store sales transactions
+List<Map<String, dynamic>> salesReport = [];
 
 class POSScreen extends StatefulWidget {
   const POSScreen({super.key});
@@ -22,25 +27,42 @@ class _POSScreenState extends State<POSScreen> {
 
   // Function to handle barcode or name submission
   void handleSubmitted(String input) {
-    // Try to find the product either by barcode or name
     var foundProduct = products.firstWhere(
           (product) => product['barcode'] == input || product['name'].toLowerCase() == input.toLowerCase(),
-      orElse: () => {
-
-      }, // Returns null if no product is found
+      orElse: () => {},
     );
 
     if (foundProduct != null) {
-      // If the product is found, add it to the cart
       addItemToCart(foundProduct['name'], foundProduct['barcode'], foundProduct['price']);
     } else {
-      // If no product is found, show an error message
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Product not found')));
     }
   }
 
+  // Function to generate a random bill number
+  String generateBillNumber() {
+    Random random = Random();
+    return (1000 + random.nextInt(9000)).toString(); // Random 4-digit number
+  }
+
   // Function to complete payment
   void completePayment(String method) {
+    if (cartItems.isEmpty) {
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Cart is empty!')));
+      return;
+    }
+
+    String billNo = generateBillNumber();
+    String formattedDate = DateFormat('yyyy-MM-dd – kk:mm').format(DateTime.now());
+
+    // Save the transaction to the sales report
+    salesReport.add({
+      'billNo': billNo,
+      'paymentMethod': method,
+      'total': total,
+      'date': formattedDate,
+    });
+
     setState(() {
       cartItems.clear();
       total = 0;
@@ -66,7 +88,7 @@ class _POSScreenState extends State<POSScreen> {
               label: Text('Scan Barcode or Enter Product Name'),
             ),
             onSubmitted: (value) {
-              handleSubmitted(value); // Call the function to handle the input
+              handleSubmitted(value);
             },
           ),
           Expanded(

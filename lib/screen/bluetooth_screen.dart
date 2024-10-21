@@ -14,7 +14,10 @@ class BluetoothPrintService {
 
   // Print a bill (as a string)
   Future<void> printBill(Map<String, dynamic> transaction) async {
-    if (await bluetooth.isConnected) {
+    // Check if printer is already connected
+    bool isConnected = await bluetooth.isConnected ?? false;
+
+    if (isConnected) {
       bluetooth.printCustom('Bill No: ${transaction['billNo']}', 2, 1);
       bluetooth.printCustom('Date: ${transaction['date']}', 1, 0);
       bluetooth.printNewLine();
@@ -30,6 +33,8 @@ class BluetoothPrintService {
       bluetooth.paperCut(); // Optional, depending on your printer
 
       bluetooth.disconnect(); // Disconnect after printing
+    } else {
+      print('Printer is not connected');
     }
   }
 }

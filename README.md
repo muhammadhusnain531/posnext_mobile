@@ -18,7 +18,7 @@ This project is designed to be an easy-to-use, intuitive POS system for small bu
 
 1. Clone the repository:
    ```bash
-   git clone (https://github.com/muhammadhusnain531/posnext_mobile.git)
+   git clone https://github.com/muhammadhusnain531/posnext_mobile.git
    ```
 2. Install the required dependencies:
    ```bash
@@ -28,7 +28,9 @@ This project is designed to be an easy-to-use, intuitive POS system for small bu
    ```bash
    flutter run
    ```
+## DEMO VIDEO
 
+## SCREENSHOT
 ## Resources to Help You Get Started with Flutter
 
 - [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)

@@ -18,7 +18,7 @@ This project is designed to be an easy-to-use, intuitive POS system for small bu
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/YOUR_GITHUB_ACCOUNT/POS-Next-Mobile.git
+   git clone (https://github.com/muhammadhusnain531/posnext_mobile.git)
    ```
 2. Install the required dependencies:
    ```bash

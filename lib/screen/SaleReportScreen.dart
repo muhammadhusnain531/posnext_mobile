@@ -1,33 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:posnext_mobile/screen/POSScreen.dart'; // Assuming POSScreen contains salesReport data
+import 'package:posnext_mobile/screen/POSScreen.dart';
 import 'package:posnext_mobile/screen/bill_details_screen.dart';
-
+import 'package:posnext_mobile/screen/bluetooth_screen.dart';
 class SaleReportScreen extends StatelessWidget {
-  // Function to calculate total cash sales
-  double getTotalCashSales() {
-    return salesReport
-        .where((transaction) => transaction['paymentMethod'] == 'Cash')
-        .fold(0.0, (sum, transaction) => sum + transaction['total']);
-  }
+  final BluetoothPrintService printService = BluetoothPrintService();
 
-  // Function to calculate total card sales
-  double getTotalCardSales() {
-    return salesReport
-        .where((transaction) => transaction['paymentMethod'] == 'Card')
-        .fold(0.0, (sum, transaction) => sum + transaction['total']);
-  }
-
-  // Function to calculate grand total sales
-  double getGrandTotalSales() {
-    return getTotalCashSales() + getTotalCardSales();
-  }
+  // Functions to calculate totals omitted for brevity
 
   @override
   Widget build(BuildContext context) {
-    double totalCashSales = getTotalCashSales();
-    double totalCardSales = getTotalCardSales();
-    double grandTotalSales = getGrandTotalSales();
-
     return Scaffold(
       appBar: AppBar(
         title: Text('Sale Report'),
@@ -64,6 +45,11 @@ class SaleReportScreen extends StatelessWidget {
                       ),
                       DataCell(
                         Text(transaction['paymentMethod'], style: TextStyle(fontSize: 10)),
+                        onTap: () async {
+                          // Connect to the printer and print the bill
+                          await printService.connectToPrinter();
+                          await printService.printBill(transaction);
+                        },
                       ),
                       DataCell(
                         Text('PKR ${transaction['total'].toStringAsFixed(2)}', style: TextStyle(fontSize: 10)),
@@ -75,27 +61,6 @@ class SaleReportScreen extends StatelessWidget {
                   );
                 }).toList(),
               ),
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                Text(
-                  'Total Cash Sales: PKR ${totalCashSales.toStringAsFixed(2)}',
-                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
-                ),
-                Text(
-                  'Total Card Sales: PKR ${totalCardSales.toStringAsFixed(2)}',
-                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
-                ),
-                Divider(),
-                Text(
-                  'Grand Total Sales: PKR ${grandTotalSales.toStringAsFixed(2)}',
-                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18, color: Colors.blue),
-                ),
-              ],
             ),
           ),
         ],

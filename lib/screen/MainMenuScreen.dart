@@ -46,7 +46,7 @@ class MainMenuScreen extends StatelessWidget {
               leading: Icon(Icons.autorenew),
               title: Text('Return'),
               onTap: (){
-                Navigator.push(context, MaterialPageRoute(builder: (context)=>ReturnScreen()));
+                Navigator.push(context, MaterialPageRoute(builder: (context)=>SaleReturnScreen()));
               },
             ),
             ListTile(

@@ -5,11 +5,37 @@ import 'package:posnext_mobile/screen/bluetooth_screen.dart';
 class SaleReportScreen extends StatelessWidget {
   final BluetoothPrintService printService = BluetoothPrintService();
 
+
   // Functions to calculate totals omitted for brevity
+
+  // Function to calculate total cash sales
+  double getTotalCashSales() {
+  return salesReport
+      .where((transaction) => transaction['paymentMethod'] == 'Cash')
+      .fold(0.0, (sum, transaction) => sum + transaction['total']);
+  }
+
+  // Function to calculate total card sales
+  double getTotalCardSales() {
+  return salesReport
+      .where((transaction) => transaction['paymentMethod'] == 'Card')
+      .fold(0.0, (sum, transaction) => sum + transaction['total']);
+  }
+
+  // Function to calculate the grand total sales
+  double getGrandTotalSales() {
+  return getTotalCashSales() + getTotalCardSales();
+  }
+
+
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+  double totalCashSales = getTotalCashSales();
+  double totalCardSales = getTotalCardSales();
+  double grandTotalSales = getGrandTotalSales();
+
+  return Scaffold(
       appBar: AppBar(
         title: Text('Sale Report'),
       ),
@@ -63,8 +89,47 @@ class SaleReportScreen extends StatelessWidget {
               ),
             ),
           ),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                Text(
+                  'Total Cash Sales: PKR ${totalCashSales.toStringAsFixed(2)}',
+                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+                ),
+                Text(
+                  'Total Card Sales: PKR ${totalCardSales.toStringAsFixed(2)}',
+                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+                ),
+                Divider(), // A divider between totals and grand total
+                Text(
+                  'Grand Total Sales: PKR ${grandTotalSales.toStringAsFixed(2)}',
+                  style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 18,
+                      color: Colors.blue),
+                ),
+              ],
+            ),
+          ),
+
         ],
       ),
     );
   }
 }
+// SaleReportScreen update to show dynamic totals after returns
+double getTotalCashSales() {
+  return salesReport
+      .where((transaction) => transaction['paymentMethod'] == 'Cash')
+      .fold(0.0, (sum, transaction) => sum + transaction['total']);
+}
+
+double getTotalCardSales() {
+  return salesReport
+      .where((transaction) => transaction['paymentMethod'] == 'Card')
+      .fold(0.0, (sum, transaction) => sum + transaction['total']);
+}
+
+//tr
